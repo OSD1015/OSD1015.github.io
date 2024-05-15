@@ -1,0 +1,186 @@
+<html lang="en" manifest="fantasy-realms.appcache">
+
+<head>
+  <meta charset="utf-8">
+  <title>Fantasy Realms: App of Scoring</title>
+  <meta name="description" content="Fantasy Realms: App of Scoring">
+  <meta name="author" content="Jimmy Praet">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="msapplication-TileColor" content="#ffffff">
+  <meta name="msapplication-TileImage" content="icons/ms-icon-144x144.png">
+  <meta name="theme-color" content="#ffffff">
+  <link rel="apple-touch-icon" sizes="57x57" href="icons/apple-icon-57x57.png">
+  <link rel="apple-touch-icon" sizes="60x60" href="icons/apple-icon-60x60.png">
+  <link rel="apple-touch-icon" sizes="72x72" href="icons/apple-icon-72x72.png">
+  <link rel="apple-touch-icon" sizes="76x76" href="icons/apple-icon-76x76.png">
+  <link rel="apple-touch-icon" sizes="114x114" href="icons/apple-icon-114x114.png">
+  <link rel="apple-touch-icon" sizes="120x120" href="icons/apple-icon-120x120.png">
+  <link rel="apple-touch-icon" sizes="144x144" href="icons/apple-icon-144x144.png">
+  <link rel="apple-touch-icon" sizes="152x152" href="icons/apple-icon-152x152.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="icons/apple-icon-180x180.png">
+  <link rel="icon" type="image/png" sizes="192x192" href="icons/android-icon-192x192.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="icons/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="96x96" href="icons/favicon-96x96.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="icons/favicon-16x16.png">
+  <link rel="manifest" href="manifest.json">
+  <link rel="stylesheet" href="css/bootstrap.min.css">
+  <link rel="stylesheet" href="css/style.css">
+  <script src="js/jquery-3.6.0.min.js"></script>
+  <script src="js/jquery.i18n.properties.min.js"></script>
+  <script src="js/bootstrap.bundle.min.js"></script>
+  <script src="js/handlebars.min-v4.7.7.js"></script>
+  <script src="js/deck.js"></script>
+  <script src="js/hand.js"></script>
+  <script src="js/app.js"></script>
+</head>
+
+<body>
+  <script id="cards-template" type="text/x-handlebars-template">
+    {{#each types}}
+    <div class="card">
+      <div class="card-header" role="tab" id="{{@key}}-header" data-toggle="collapse" data-target="#{{@key}}" data-parent="#cards" href="#{{@key}}" aria-expanded="false" aria-controls="{{@key}}">
+        <a>{{{i18n 'type.' @key}}}</a>
+      </div>
+      <div id="{{@key}}" class="collapse" role="tabpanel" data-parent="#cards" aria-labelledby="{{@key}}-header">
+        <ul class="list-group">
+          {{#each this}}
+          <li class="list-group-item {{type}}" onclick="addToView('{{id}}')"><span class="badge badge-secondary">{{strength}}</span> {{{i18n id '.name'}}}</li>
+          {{/each}}
+        </ul>
+      </div>
+    </div>
+    {{/each}}
+  </script>
+  <script id="type-selection-template" type="text/x-handlebars-template">
+    {{#each types}}
+    <div class="card">
+      <div class="card-header type-selection" onclick="selecttype('{{this}}')">
+        {{{i18n 'type.' this}}}
+      </div>
+    </div>
+    {{/each}}
+  </script>
+  <script id="hand-template" type="text/x-handlebars-template">
+    {{#each playerCards}}
+    <div id="card-{{id}}" class="card" onclick="selectFromHand('{{id}}')">
+      <ul class="list-group">
+        <li class="list-group-item {{type}} {{#if blanked}}blanked{{/if}}">
+          <span class="badge badge-secondary">
+            {{#if blanked}}
+              {{i18n 'label.blanked'}}
+            {{else}}             
+              {{strength}}
+            {{/if}}
+          </span> 
+          {{#if transformed}}
+            {{{i18n id '.transformed.name'}}}
+          {{else}}
+            {{{i18n id '.name'}}}
+          {{/if}}
+          {{#if magic}}
+          *
+          {{/if}}
+          {{#if transformed}}
+          ⇅
+          {{/if}}
+          {{#if tags}}
+          <span class="tags">
+            {{#each tags}}
+              <span class="{{this}} tag"></span>
+            {{/each}}
+          </span>
+          {{/if}}          
+          <span class="float-right points">{{points}}</span>
+        </li>
+        <li class="list-group-item text {{#if blanked}}blanked{{/if}}">
+          {{{i18n id '.text'}}}
+          {{#if bonusPoints}}
+            {{#ifPositive bonusPoints}}
+            <span class="float-right bonus">+{{bonusPoints}}</span>
+            {{else}}
+            <span class="float-right penalty">{{bonusPoints}}</span>
+            {{/ifPositive}}
+          {{/if}}
+        </li>
+        {{#if card.action}}
+        <li class="list-group-item bonus">
+            <span id="card-action-text-{{id}}"></span>
+            <button id="card-action-use-{{id}}" type="button" class="btn btn-sm btn-primary float-right" onclick="event.stopPropagation(); useCardAction('{{id}}');">{{{i18n 'button.use'}}}</button>
+            <button id="card-action-cancel-{{id}}" style="display: none;" type="button" class="btn btn-sm btn-primary float-right" onclick="event.stopPropagation(); cancelCardAction('{{id}}');">{{i18n 'button.cancel'}}</button>
+        </li>
+        {{/if}}
+        {{#ifEquals id 'MR22'}}
+        <li class="list-group-item text {{#if blanked}}blanked{{/if}}" onclick="event.stopPropagation();">
+          <b>{{{i18n id '.action'}}}:</b>
+          <div class="btn-group" role="group">
+            <button id="vision_strength" type="button" class="btn btn-light btn-sm {{#ifIncludes actionData 'strength'}}active{{/ifIncludes}}" onclick="toggleVisionTag('strength')"><span class="strength tag"></span></button>
+            <button id="vision_flight" type="button" class="btn btn-light btn-sm {{#ifIncludes actionData 'flight'}}active{{/ifIncludes}}" onclick="toggleVisionTag('flight')"><span class="flight tag"></span></button>
+            <button id="vision_tech" type="button" class="btn btn-light btn-sm {{#ifIncludes actionData 'tech'}}active{{/ifIncludes}}" onclick="toggleVisionTag('tech')"><span class="tech tag"></span></button>
+            <button id="vision_range" type="button" class="btn btn-light btn-sm {{#ifIncludes actionData 'range'}}active{{/ifIncludes}}" onclick="toggleVisionTag('range')"><span class="range tag"></span></button>
+          </div>
+        </li>
+        {{/ifEquals}}
+      </ul>
+    </div>
+    {{/each}}
+  </script>
+  <div id="container">
+    <header>
+      <a href="https://wizkids.com/fantasy-realms/"><img src="img/fantasy-realms.jpg" style="height: 3rem; max-width: 100%;"></img></a>
+      <div id="header-right">
+        <div id="hand-info">
+          <span id="cardCount">0</span><span class="separator">/</span><span id="cardLimit">7</span>
+          <span id="points">000</span>
+        </div>
+        <button id="clear" type="button" class="btn btn-success" onclick="reset()">Reset</button>
+      </div>
+    </header>
+    <main>
+      <div id="left">
+        <div id="cards" class="panel" role="tablist" aria-multiselectable="true"></div>
+      </div>
+      <div id="right">
+        <div id="settings" style="display: none;">
+          <div id="language" class="dropdown">
+            <button class="btn btn-sm btn-secondary dropdown-toggle" type="button" id="language-selector" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              <img src="img/globe.png" style="height: 1rem;"></img>
+              <span id="selected-language">English</span>
+            </button>
+            <div class="dropdown-menu" aria-labelledby="language-selector">
+              <a id="lang-en" class="dropdown-item" href="#" onclick="selectLanguage('en')">English</a>
+              <a id="lang-de" class="dropdown-item" href="#" onclick="selectLanguage('de')">Deutsch</a>
+              <a id="lang-de" class="dropdown-item" href="#" onclick="selectLanguage('es')">Español</a>
+              <a id="lang-fr" class="dropdown-item" href="#" onclick="selectLanguage('fr')">Français</a>
+              <a id="lang-pl" class="dropdown-item" href="#" onclick="selectLanguage('pl')">Polski</a>
+              <a id="lang-ua" class="dropdown-item" href="#" onclick="selectLanguage('ua')">Українська</a>
+            </div>
+          </div>
+          <div id="sound">
+            <div class="custom-control custom-switch">
+              <input type="checkbox" class="custom-control-input" id="sound-state" checked>
+              <label id="sound-label" class="custom-control-label" for="sound-state">Sound</label>
+            </div>
+          </div>
+        </div>
+        <div id="hand">
+        </div>
+      </div>
+    </main>
+    <footer>
+      <div id="wizkids-logo">
+        <a href="https://wizkids.com/"><img src="img/wizkids.png" style="width: 7rem;"></img></a>
+      </div>
+      <div id="legal-text">
+        © Marvel © 2022 WIZKIDS/NECA. LLC. WIZKIDS and related marks and logos are trademarks of WizKids. All rights Reserved.
+      </div>
+    </footer>
+  </div>
+</body>
+
+<script>
+  if ('serviceWorker' in navigator) {
+    navigator.serviceWorker.register('/service-worker.js');
+  }
+</script>
+
+</html>

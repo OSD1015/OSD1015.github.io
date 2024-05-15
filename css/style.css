@@ -1,0 +1,388 @@
+:root {
+  --tech-color: #cb0c52;
+  --intel-color: #565b6d;
+  --strength-color: #0f9444;
+  --agility-color: #f68b1f;
+  --flight-color: #00a7ea;
+  --range-color: #922790;
+  --wakanda-color: #38002d;
+  --asgard-color: #c59069;
+  --mutant-color: #00487a;
+  --gamma-color: #88ab2d;
+  --worthy-color: #978359;
+  --urban-color: #ec078e;
+  --boss-color: #ee1c25;
+
+  --hero-color: #00a7ea;
+  --ally-color: #922790;
+  --condition-color: #0f9444;
+  --equipment-color: #565b6d;
+  --location-color: #f68b1f;
+  --maneuver-color: #ec078e;
+  --villain-color: #98090c;
+ 
+  --wild-color: #c6c2c3;
+  --header-border: 6px;
+}
+
+html, body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  background-color: #ccc0a8;
+  background-attachment: fixed;
+  background-size: cover;
+  background-position: center center;
+  background-image: url('../img/background.png');
+}
+
+#container {
+  display: flex;
+  flex-direction: column;
+  min-height: 100%;
+  width: 100%;
+  max-width: 60rem;
+
+  /* center the container */
+  margin-left: auto;
+  margin-right: auto;
+}
+
+header {
+  position: fixed;
+  z-index: 1;
+  background-color: #6f292b;
+  height: 4rem;
+  padding: 0.5rem;
+  width: 100%;
+  max-width: 60rem;
+  vertical-align: middle;
+}
+
+header label {
+  color: #ccc0a8;
+}
+
+main {
+  padding-top: 4rem;
+  min-height: 100%;
+  display: flex;
+  -webkit-box-flex: 1;
+  -ms-flex: 1;
+  flex: 1;
+}
+
+#header-right {
+  float: right;
+  height: 100%;
+  display: flex;
+  align-items: center;
+}
+
+#hand-info {
+  font-size: 2.4rem;
+  font-weight: bold;
+  margin-right: 0.6rem;
+}
+
+#points {
+  color: #c3a332;
+}
+
+#cardCount, #cardLimit {
+  color: #995153;
+}
+
+span.separator {
+  color: #995153;
+}
+
+#left {
+  width: 10rem;
+  background-color: #ccc0a8;
+}
+
+#right {
+  background-color: #e9e3c6;
+  min-height: 100%;
+  width: calc(100% - 10rem);
+}
+
+footer {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  background-color: #e9e3c6;
+}
+
+#wizkids-logo {
+  width: 10rem;
+  background-color: #ccc0a8;
+  text-align: center;
+  padding: 0.5rem;
+}
+
+#legal-text {
+  width: calc(100% - 10rem);
+  font-size: x-small;
+  text-align: center;
+  color: #312b2f;
+  margin-top: auto;
+  margin-bottom: 5px;
+}
+
+li.list-group-item {
+  color: white;
+  display: block;
+  font-size: 0.9rem;
+}
+
+li.hero {
+  background-color: var(--hero-color);
+}
+
+span.hero {
+  color: var(--hero-color);
+}
+
+#hero-header {
+  border-right: solid var(--hero-color) var(--header-border);
+}
+
+li.ally {
+  background-color: var(--ally-color);
+}
+
+span.ally {
+  color: var(--ally-color);
+}
+
+#ally-header {
+  border-right: solid var(--ally-color) var(--header-border);
+}
+
+li.condition {
+  background-color: var(--condition-color);
+}
+
+span.condition {
+  color: var(--condition-color);
+}
+
+#condition-header {
+  border-right: solid var(--condition-color) var(--header-border);
+}
+
+li.equipment {
+  background-color: var(--equipment-color);
+}
+
+span.equipment {
+  color: var(--equipment-color);
+}
+
+#equipment-header {
+  border-right: solid var(--equipment-color) var(--header-border);
+}
+
+li.location {
+  background-color: var(--location-color);
+}
+
+span.location {
+  color: var(--location-color);
+}
+
+#location-header {
+  border-right: solid var(--location-color) var(--header-border);
+}
+
+li.maneuver {
+  background-color: var(--maneuver-color);
+}
+
+span.maneuver {
+  color: var(--maneuver-color);
+}
+
+#maneuver-header {
+  border-right: solid var(--maneuver-color) var(--header-border);
+}
+
+li.villain {
+  background-color: var(--villain-color);
+}
+
+span.villain {
+  color: var(--villain-color);
+}
+
+#villain-header {
+  border-right: solid var(--villain-color) var(--header-border);
+}
+
+li.wild {
+  background-color: var(--wild-color);
+}
+
+span.wild {
+  color: var(--wild-color);
+}
+
+#wild-header {
+  border-right: solid var(--wild-color) var(--header-border);
+}
+
+#cards {
+  background-color: #ccc0a8;
+}
+
+#cards .card-header, #hand .card-header {
+  padding: 0.4rem;
+  font-weight: bold;
+  background-color: #ccc0a8;
+  cursor: pointer;
+}
+
+#hand, #settings {
+  background-color: #e9e3c6;
+  padding: 0.4rem;
+  font-weight: bold;
+}
+
+#settings {
+  font-weight: normal;
+  color: var(--equipment-color);
+  font-size: small;
+}
+
+#language {
+  margin-top: 0.5rem;
+}
+
+#cards li, #hand li {
+  font-weight: bold;
+  padding: 0.4rem;
+  cursor: pointer;
+}
+
+#cards li {
+  padding-right: 0;
+}
+
+#hand li.text {
+  background-color: #fffafa;
+  color: grey;
+  font-weight: normal;
+  font-size: 0.8rem;
+  border: 0;
+}
+
+#hand li span {
+  font-weight: bold;
+}
+
+#hand li.blanked {
+  opacity: 0.4;
+  filter: grayscale(100%);
+}
+
+#hand div.card {
+  margin-bottom: 0.4rem;
+  cursor: pointer;
+}
+
+span.badge-default {
+  min-width: 1.5rem;
+}
+
+span.bonus {
+  color: green;
+}
+
+span.penalty {
+  color: red;
+}
+
+.cleared, .cleared:hover {
+  text-decoration: line-through;
+}
+
+button {
+  cursor: pointer;
+}
+
+#cards div.suit-selection {
+  background-color: #aed77b;
+}
+
+span.tags {
+  background-color: white;
+  border-radius: 1rem;
+  padding: 4px;
+  padding-bottom: 0;
+  vertical-align: middle;
+}
+
+span.tag::after {
+  background-size: 1rem 1rem;
+  display: inline-block;
+  width: 1rem; 
+  height: 1rem;
+  content:"";
+}
+
+span.tag.tech::after {
+  background-image: url('../icons/TECH.svg');
+}
+
+span.tag.intel::after {
+  background-image: url('../icons/INTEL.svg');
+}
+
+span.tag.strength::after {
+  background-image: url('../icons/STRENGTH.svg');
+}
+
+span.tag.agility::after {
+  background-image: url('../icons/AGILITY.svg');
+}
+
+span.tag.flight::after {
+  background-image: url('../icons/FLIGHT.svg');
+}
+
+span.tag.range::after {
+  background-image: url('../icons/RANGE.svg');
+}
+
+span.tag.wakanda::after {
+  background-image: url('../icons/WAKANDA.svg');
+}
+
+span.tag.asgard::after {
+  background-image: url('../icons/ASGARD.svg');
+}
+
+span.tag.mutant::after {
+  background-image: url('../icons/MUTANT.svg');
+}
+
+span.tag.gamma::after {
+  background-image: url('../icons/GAMMA.svg');
+}
+
+span.tag.worthy::after {
+  background-image: url('../icons/WORTHY.svg');
+}
+
+span.tag.urban::after {
+  background-image: url('../icons/URBAN.svg');
+}
+
+span.tag.boss::after {
+  background-image: url('../icons/BOSS.svg');
+}

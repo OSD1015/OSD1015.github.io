@@ -907,6 +907,16 @@ var villains = {
     bonusScore: function (hand) {
       return hand.countTag('tech') >= 2 ? 0 : -20;
     }
+  },
+  'MR80': {
+    id: 'MR80',
+    type: 'villain',
+    name: 'Testing card',
+    strength: 1000,
+    tags: ['boss', 'mutant', 'intel'],
+    bonusScore: function (hand) {
+      return hand.countTag('tech') >= 2 ? 0 : -100;
+    }
   }
 };
 

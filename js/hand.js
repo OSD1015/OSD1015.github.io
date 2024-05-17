@@ -149,6 +149,7 @@ class Hand {
   }
 
   score() {
+    var extraScoreValue = extraScore();
     var score = 0;
     this._resetHand();
     this._performCardActions();
@@ -157,7 +158,7 @@ class Hand {
     for (const card of this.nonBlankedCards()) {
       score += card.score(this);
     }
-    return score;
+    return score + extraScoreValue;
   }
 
   _resetHand() {
@@ -305,7 +306,7 @@ class CardInHand {
 
   performCardAction(hand) {
     if (this.actionData !== undefined) {
-      if (this.id === VISION) {
+      if (this.id === VISION || this.id === ROGUE) {
         this.tags = this.tags.concat(this.actionData);
       }
     }

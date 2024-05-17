@@ -561,7 +561,7 @@ var remixCards = {
     id: 'MR51',
     type: 'location',
     name: 'Remote Fortress',
-    strength: 0,
+    strength: 16,
     tags: [],
     bonusScore: function (hand) {
       return 0;
@@ -913,7 +913,7 @@ var villains = {
     type: 'villain',
     name: 'Testing card',
     strength: 1000,
-    tags: ['boss', 'mutant', 'intel'],
+    tags: ['boss', 'mutant'],
     bonusScore: function (hand) {
       return hand.countTag('tech') >= 2 ? 0 : -100;
     }
@@ -969,5 +969,7 @@ function allTypes() {
 
 var NONE = -1;
 var VISION = 'MR22';
+var ROGUE = 'MR13';
+var MR80 = 'MR80';
 
-var ACTION_ORDER = [VISION];
+var ACTION_ORDER = [VISION, ROGUE];

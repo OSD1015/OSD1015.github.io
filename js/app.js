@@ -198,6 +198,22 @@ function toggleVisionTag(tag) {
   updateHandView();
 }
 
+function toggleRogueTag(tag) {
+  var rogue = hand.getCardById(ROGUE);
+  if (rogue.actionData === undefined) {
+    rogue.actionData = [tag];
+    magic.play();
+  } else if (rogue.actionData.includes(tag)) {
+    rogue.actionData = rogue.actionData.filter(t => t !== tag);
+    swoosh.play();
+  } else if (rogue.actionData.length < 1) {
+    rogue.actionData.push(tag);
+    magic.play();
+  }
+  showCards();
+  updateHandView();
+}
+
 function showCards(types) {
   var template = Handlebars.compile($("#cards-template").html());
   var html = template({
@@ -206,4 +222,16 @@ function showCards(types) {
     allowProtoMethodsByDefault: true
   });
   $('#cards').html(html);
+}
+
+function extraScore() {
+  var rogueCopiedScore = document.getElementById('roguecopynum');
+  if (!rogueCopiedScore) {
+    console.log('Rogue is not in the deck, or the number of scores that you want to copy has not been inputted. ');
+    return 0;
+  } else {
+  var extraScoreValue = Number(rogueCopiedScore.value);
+  rogueCopiedScore.value = extraScoreValue;
+  }
+  return extraScoreValue;
 }

@@ -157,7 +157,7 @@ class Hand {
     for (const card of this.nonBlankedCards()) {
       score += card.score(this);
     }
-    return score;
+    return score + extraScore();
   }
 
   _resetHand() {

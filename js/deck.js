@@ -141,7 +141,7 @@ var remixCards = {
     strength: 0,
     tags: ['mutant'],
     bonusScore: function (hand) {
-      return extraScore();
+      return 0;
     }
   },
   'MR14': {

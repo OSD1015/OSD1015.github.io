@@ -231,7 +231,8 @@ function extraScore() {
     return 0;
   } else {
   var extraScoreValue = Number(rogueCopiedScore.value);
-  rogueCopiedScore.value = extraScoreValue;
+  rogue = hand.getCardById(ROGUE);
+  rogue.strength = extraScoreValue;
   }
   return extraScoreValue;
 }

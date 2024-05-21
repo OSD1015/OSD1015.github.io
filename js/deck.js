@@ -134,7 +134,6 @@ var remixCards = {
     }
   },
   'MR13': {
-    // TODO: ROGUE may copy the base power and one tag of another HERO in your hand.
     id: 'MR13',
     type: 'hero',
     name: 'Rogue',
@@ -521,7 +520,7 @@ var remixCards = {
     id: 'MR47',
     type: 'location',
     name: 'Hidden Lair',
-    strength: 0,
+    strength: 16,
     tags: [],
     bonusScore: function (hand) {
       return 0;

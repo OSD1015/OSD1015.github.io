@@ -320,10 +320,6 @@ class CardInHand {
     } else {
       this.bonusPoints = 0;
     }
-    if (this.id === ROGUE) {
-      this.strength = extraScore();
-      return this.strength;
-    }
     return this.strength + this.bonusPoints;
   }
 

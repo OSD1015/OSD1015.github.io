@@ -125,7 +125,7 @@
             <button id="rogue_wakanda" type="button" class="btn btn-light btn-sm {{#ifIncludes actionData 'wakanda'}}active{{/ifIncludes}}" onclick="toggleRogueTag('wakanda')"><span class="wakanda tag"></span></button>
             <button id="rogue_worthy" type="button" class="btn btn-light btn-sm {{#ifIncludes actionData 'worthy'}}active{{/ifIncludes}}" onclick="toggleRogueTag('worthy')"><span class="worthy tag"></span></button>
           </div>
-          <br><B>Type the score that you want to copy: </B><input type="number" id="roguecopynum" name="roguecopynum" min="0" max="13" />
+          <br><B>Type the score that you want to copy: </B><input type="number" id="roguecopynum" min="0" max="13" />
           <button class="submit-button" id="rogueBtn" onclick="updateHandView()">Submit</button> (Please choose the tag first. )
         </li>
         {{/ifEquals}}

@@ -227,7 +227,7 @@ function showCards(types) {
 function extraScore() {
   var rogueCopiedScore = document.getElementById('roguecopynum');
   if (!rogueCopiedScore) {
-    console.log('Rogue is not in the deck, or the number of scores that you want to copy has not been inputted. ');
+    //console.log('Rogue is not in the deck, or the number of scores that you want to copy has not been inputted. ');
     return 0;
   } else {
   var extraScoreValue = Number(rogueCopiedScore.value);

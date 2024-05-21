@@ -149,7 +149,6 @@ class Hand {
   }
 
   score() {
-    var extraScoreValue = extraScore();
     var score = 0;
     this._resetHand();
     this._performCardActions();
@@ -158,7 +157,7 @@ class Hand {
     for (const card of this.nonBlankedCards()) {
       score += card.score(this);
     }
-    return score + extraScoreValue;
+    return score;
   }
 
   _resetHand() {
@@ -320,6 +319,10 @@ class CardInHand {
       this.bonusPoints = this.bonusScore(hand);
     } else {
       this.bonusPoints = 0;
+    }
+    if (this.id === ROGUE) {
+      this.strength = extraScore();
+      return this.strength;
     }
     return this.strength + this.bonusPoints;
   }
